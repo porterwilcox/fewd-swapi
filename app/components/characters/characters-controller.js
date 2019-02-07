@@ -13,13 +13,13 @@ function drawCharacters(charArray) {
 
 function drawPrev(src) {
     document.querySelector(".controls").innerHTML = `
-    <button class="col-6" onclick="${app.controllers.charactersController.prev(src)}">Prev</button>
+    <button class="col-6" onclick="app.controllers.charactersController.newCharacterRequest('${src}')">Prev</button>
     `
 }
 
 function drawNext(src) {
     document.querySelector(".controls").innerHTML += `
-    <button class="col-6" onclick="${app.controllers.charactersController.next(src)}">Next</button>
+    <button class="col-6" onclick="app.controllers.charactersController.newCharacterRequest('${src}')">Next</button>
     `
 }
 
@@ -29,6 +29,11 @@ export default class CharactersController {
         _charactersService.getCharacters(drawCharacters, drawPrev, drawNext)
     }
 
-    prev() {}
-    next() {}
+    newCharacterRequest(str) {
+        let queryStr = ''
+        if(str != 'null') {
+            queryStr = str.substr(str.indexOf("?"))
+        }
+        _charactersService.getCharacters(drawCharacters, drawPrev, drawNext, queryStr)
+    }
 }

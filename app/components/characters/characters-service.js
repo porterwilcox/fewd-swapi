@@ -21,9 +21,12 @@ export default class CharactersService{
         return _characters.map(c => c)
     }
 
-    getCharacters(drawCharacters, drawPrev, drawNext) {
+    getCharacters(drawCharacters, drawPrev, drawNext, queryStr) {
         console.log('we sent the request')
-        charactersApi.get('')
+        if(!queryStr) {
+            queryStr = ''
+        }
+        charactersApi.get(`${queryStr}`)
             .then(res => {
                 console.log('swapi res', res)
                 let charsFromSwapi = res.data.results
