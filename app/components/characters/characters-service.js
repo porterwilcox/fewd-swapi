@@ -21,7 +21,7 @@ export default class CharactersService{
         return _characters.map(c => c)
     }
 
-    getCharacters(drawCharacters) {
+    getCharacters(drawCharacters, drawPrev, drawNext) {
         console.log('we sent the request')
         charactersApi.get('')
             .then(res => {
@@ -31,6 +31,10 @@ export default class CharactersService{
                     return new Character(c)
                 })
                 drawCharacters(myChars)
+                let prev = res.data.previous
+                let next = res.data.next
+                drawPrev(prev)
+                drawNext(next)
             })
             .catch(e => console.error(e))
         console.log("we're waiting for the response")        
